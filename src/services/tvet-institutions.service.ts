@@ -229,72 +229,90 @@ export class TvetInstitutionsService {
               "Level": "GES",
               "Urban": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=1 AND [CODE_TYPE_LOCALITY]=2`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=1 AND [CODE_TYPE_LOCALITY]=2 AND [RegCode]=${regionID}`
               ))[0].TotalCount,
               "Rural": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=1 AND [CODE_TYPE_LOCALITY]=1`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=1 AND [CODE_TYPE_LOCALITY]=1 AND [RegCode]=${regionID}`
               ))[0].TotalCount,
               "Value": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=1`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=1 AND [RegCode]=${regionID}`
               ))[0].TotalCount
             },
             {
               "Level": "OTHER PUBLIC INSTITUTIONS",
               "Urban": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=12 AND [CODE_TYPE_LOCALITY]=2`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=12 AND [CODE_TYPE_LOCALITY]=2 AND [RegCode]=${regionID}`
               ))[0].TotalCount,
               "Rural": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=12 AND [CODE_TYPE_LOCALITY]=1`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=12 AND [CODE_TYPE_LOCALITY]=1 AND [RegCode]=${regionID}`
               ))[0].TotalCount,
               "Value": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=12`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=12 AND [RegCode]=${regionID}`
               ))[0].TotalCount
             },
             {
               "Level": "PRIVATE INSTITUTIONS",
               "Urban": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=11 AND [CODE_TYPE_LOCALITY]=2`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=11 AND [CODE_TYPE_LOCALITY]=2 AND [RegCode]=${regionID}`
               ))[0].TotalCount,
               "Rural": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=11 AND [CODE_TYPE_LOCALITY]=1`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=11 AND [CODE_TYPE_LOCALITY]=1 AND [RegCode]=${regionID}`
               ))[0].TotalCount,
               "Value": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=11`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=11 AND [RegCode]=${regionID}`
               ))[0].TotalCount
             }
           ]
@@ -346,72 +364,90 @@ export class TvetInstitutionsService {
               "Level": "GES",
               "Urban": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=1 AND [CODE_TYPE_LOCALITY]=2`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=1 AND [CODE_TYPE_LOCALITY]=2 AND [DstCode]=${districtID}`
               ))[0].TotalCount,
               "Rural": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=1 AND [CODE_TYPE_LOCALITY]=1`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=1 AND [CODE_TYPE_LOCALITY]=1 AND [DstCode]=${districtID}`
               ))[0].TotalCount,
               "Value": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=1`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=1 AND [DstCode]=${districtID}`
               ))[0].TotalCount
             },
             {
               "Level": "OTHER PUBLIC INSTITUTIONS",
               "Urban": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=12 AND [CODE_TYPE_LOCALITY]=2`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=12 AND [CODE_TYPE_LOCALITY]=2 AND [DstCode]=${districtID}`
               ))[0].TotalCount,
               "Rural": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=12 AND [CODE_TYPE_LOCALITY]=1`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=12 AND [CODE_TYPE_LOCALITY]=1 AND [DstCode]=${districtID}`
               ))[0].TotalCount,
               "Value": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=12`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=12 AND [DstCode]=${districtID}`
               ))[0].TotalCount
             },
             {
               "Level": "PRIVATE INSTITUTIONS",
               "Urban": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=11 AND [CODE_TYPE_LOCALITY]=2`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=11 AND [CODE_TYPE_LOCALITY]=2 AND [DstCode]=${districtID}`
               ))[0].TotalCount,
               "Rural": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=11 AND [CODE_TYPE_LOCALITY]=1`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=11 AND [CODE_TYPE_LOCALITY]=1 AND [DstCode]=${districtID}`
               ))[0].TotalCount,
               "Value": (await this.mssqldbDataSource.execute(
                 `SELECT COUNT(*) AS TotalCount
-                FROM [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                 INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
                 ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
-                WHERE [CODE_TYPE_TVET_INSTITUTION]=11`
+                WHERE [CODE_TYPE_TVET_INSTITUTION]=11 AND [DstCode]=${districtID}`
               ))[0].TotalCount
             }
           ]
