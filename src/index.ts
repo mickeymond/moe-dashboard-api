@@ -1,4 +1,7 @@
+import dotenv from 'dotenv';
 import {ApplicationConfig, MoeDashboardApiApplication} from './application';
+
+dotenv.config();
 
 export * from './application';
 
