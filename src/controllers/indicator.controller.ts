@@ -1,15 +1,19 @@
 // Uncomment these imports to begin using these cool features!
 import {service} from '@loopback/core';
 import {get, HttpErrors, param} from '@loopback/rest';
-import {TvetInstitutionsService} from '../services';
+import {TvetEnrolmentSchoolLevelService, TvetInstitutionsService} from '../services';
 
 const INDICATOR_IDS = {
-  TVET_INSTITUTIONS: 31
+  TVET_INSTITUTIONS: 31,
+  TVET_ENROLMENT_SCHOOL_LEVEL: 27
 }
 
 export class IndicatorController {
   constructor(
-    @service(TvetInstitutionsService) private tvetInstitutionsService: TvetInstitutionsService
+    @service(TvetInstitutionsService)
+    private tvetInstitutionsService: TvetInstitutionsService,
+    @service(TvetEnrolmentSchoolLevelService)
+    private tvetEnrolmentSchoolLevelService: TvetEnrolmentSchoolLevelService
   ) { }
 
   @get('/get_indicator_national')
@@ -19,6 +23,8 @@ export class IndicatorController {
   ) {
     if (indicatorID === INDICATOR_IDS.TVET_INSTITUTIONS) {
       return this.tvetInstitutionsService.getNational(year);
+    } else if (indicatorID === INDICATOR_IDS.TVET_ENROLMENT_SCHOOL_LEVEL) {
+      return this.tvetEnrolmentSchoolLevelService.getNational(year);
     } else {
       throw new HttpErrors.NotFound('National Indicator Not Implemented');
     }
@@ -32,6 +38,8 @@ export class IndicatorController {
   ) {
     if (indicatorID === INDICATOR_IDS.TVET_INSTITUTIONS) {
       return this.tvetInstitutionsService.getRegional(year, regionID);
+    } else if (indicatorID === INDICATOR_IDS.TVET_ENROLMENT_SCHOOL_LEVEL) {
+      return this.tvetEnrolmentSchoolLevelService.getRegional(year, regionID);
     } else {
       throw new HttpErrors.NotFound('Regional Indicator Not Implemented');
     }
@@ -45,6 +53,8 @@ export class IndicatorController {
   ) {
     if (indicatorID === INDICATOR_IDS.TVET_INSTITUTIONS) {
       return this.tvetInstitutionsService.getDistrict(year, districtID);
+    } else if (indicatorID === INDICATOR_IDS.TVET_ENROLMENT_SCHOOL_LEVEL) {
+      return this.tvetEnrolmentSchoolLevelService.getDistrict(year, districtID);
     } else {
       throw new HttpErrors.NotFound('District Indicator Not Implemented');
     }
