@@ -459,9 +459,11 @@ export class TvetEnrolmentSchoolLevelService {
             ))[0].Total
           },
           "LevelOne": await Promise.all((await this.mssqldbDataSource.execute(
-            `SELECT TOP (100) [RegCode], [Region], [DstCode], [District]
+            `SELECT DISTINCT [DstCode], [District]
             FROM [${dbYear}].[dbo].[RegDst_Inst]
-            WHERE [RegCode]=${regionID}`
+            INNER JOIN [${dbYear}].[dbo].[ZONES]
+            ON [${dbYear}].[dbo].[RegDst_Inst].[DstCode]=[${dbYear}].[dbo].[ZONES].[CODE_ZONE]
+            WHERE [CODE_TYPE_ZONE]=2 AND [RegCode]=${regionID}`
           )).map(async (district: any) => {
             return {
               "District": district.District,
