@@ -12,7 +12,7 @@ export class TvetInstitutionsService {
     const dbYear = `db${year}_Ghana`;
     try {
       return {
-        [dbYear]: {
+        [year]: {
           "Main": {
             "Urban": (await this.mssqldbDataSource.execute(
               `SELECT COUNT(*) AS TotalCount
@@ -117,7 +117,7 @@ export class TvetInstitutionsService {
     const dbYear = `db${year}_Ghana`;
     try {
       return {
-        [dbYear]: {
+        [year]: {
           "Main": {
             "RegionId": regionID,
             "Urban": (await this.mssqldbDataSource.execute(
@@ -239,7 +239,7 @@ export class TvetInstitutionsService {
     const dbYear = `db${year}_Ghana`;
     try {
       return {
-        [dbYear]: {
+        [year]: {
           "Main": {
             "DistrictId": districtID,
             "Urban": (await this.mssqldbDataSource.execute(

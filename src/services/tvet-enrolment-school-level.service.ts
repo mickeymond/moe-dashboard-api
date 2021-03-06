@@ -12,7 +12,7 @@ export class TvetEnrolmentSchoolLevelService {
     const dbYear = `db${year}_Ghana`;
     try {
       return {
-        [dbYear]: {
+        [year]: {
           "Main": {
             "Male": (await this.mssqldbDataSource.execute(
               `SELECT ISNULL(SUM([MALE]),0) as Total
@@ -433,7 +433,7 @@ export class TvetEnrolmentSchoolLevelService {
     const dbYear = `db${year}_Ghana`;
     try {
       return {
-        [dbYear]: {
+        [year]: {
           "Main": {
             "RegionID": regionID,
             "Male": (await this.mssqldbDataSource.execute(
@@ -938,7 +938,7 @@ export class TvetEnrolmentSchoolLevelService {
     const dbYear = `db${year}_Ghana`;
     try {
       return {
-        [dbYear]: {
+        [year]: {
           "Main": {
             "DistrictID": districtID,
             "Male": (await this.mssqldbDataSource.execute(
