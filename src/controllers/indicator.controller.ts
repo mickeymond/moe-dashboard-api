@@ -16,7 +16,7 @@ export class IndicatorController {
     private tvetEnrolmentSchoolLevelService: TvetEnrolmentSchoolLevelService
   ) { }
 
-  @get('/get_indicator_national')
+  @get('/loopback/get_indicator_national')
   async getIndicatorNational(
     @param.query.number('year', {required: true}) year: number,
     @param.query.number('indicatorID', {required: true}) indicatorID: number,
@@ -30,7 +30,7 @@ export class IndicatorController {
     }
   }
 
-  @get('/get_indicator_regional')
+  @get('/loopback/get_indicator_regional')
   async getIndicatorRegional(
     @param.query.number('year', {required: true}) year: number,
     @param.query.number('indicatorID', {required: true}) indicatorID: number,
@@ -45,7 +45,7 @@ export class IndicatorController {
     }
   }
 
-  @get('/get_indicator_district')
+  @get('/loopback/get_indicator_district')
   async getIndicatorDistrict(
     @param.query.number('year', {required: true}) year: number,
     @param.query.number('indicatorID', {required: true}) indicatorID: number,
