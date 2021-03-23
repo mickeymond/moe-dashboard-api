@@ -596,4 +596,82 @@ export class TvetEnrolmentSchoolLevelService {
       throw new HttpErrors.ExpectationFailed(error.message);
     }
   }
+
+  async getTopBottom5(year: number) {
+    const dbYear = `db${year}_Ghana`;
+    try {
+      return {
+        [year]: {
+          "Top_5": (await Promise.all((await this.mssqldbDataSource.execute(
+            `SELECT DISTINCT [DstCode], [District]
+            FROM [${dbYear}].[dbo].[RegDst_Inst]
+            INNER JOIN [${dbYear}].[dbo].[ZONES]
+            ON [${dbYear}].[dbo].[RegDst_Inst].[DstCode]=[${dbYear}].[dbo].[ZONES].[CODE_ZONE]
+            WHERE [CODE_TYPE_ZONE]=2`
+          )).map(async (district: any) => {
+            return {
+              "District": district.District,
+              "DistrictID": district.DstCode,
+              "Male": (await this.mssqldbDataSource.execute(
+                `SELECT ISNULL(SUM([MALE]),0) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_TVET].[CODE_INSTITUTION]
+                WHERE [DstCode]=${district.DstCode}`
+              ))[0].Total,
+              "Female": (await this.mssqldbDataSource.execute(
+                `SELECT ISNULL(SUM([FEMALE]),0) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_TVET].[CODE_INSTITUTION]
+                WHERE [DstCode]=${district.DstCode}`
+              ))[0].Total,
+              "Value": (await this.mssqldbDataSource.execute(
+                `SELECT (ISNULL(SUM([MALE]),0) + ISNULL(SUM([FEMALE]),0)) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_TVET].[CODE_INSTITUTION]
+                WHERE [DstCode]=${district.DstCode}`
+              ))[0].Total
+            }
+          }))).filter((a: any) => a.Value > 0).sort((a: any, b: any) => b.Value - a.Value).slice(0, 5),
+          "Bottom_5": (await Promise.all((await this.mssqldbDataSource.execute(
+            `SELECT DISTINCT [DstCode], [District]
+            FROM [${dbYear}].[dbo].[RegDst_Inst]
+            INNER JOIN [${dbYear}].[dbo].[ZONES]
+            ON [${dbYear}].[dbo].[RegDst_Inst].[DstCode]=[${dbYear}].[dbo].[ZONES].[CODE_ZONE]
+            WHERE [CODE_TYPE_ZONE]=2`
+          )).map(async (district: any) => {
+            return {
+              "District": district.District,
+              "DistrictID": district.DstCode,
+              "Male": (await this.mssqldbDataSource.execute(
+                `SELECT ISNULL(SUM([MALE]),0) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_TVET].[CODE_INSTITUTION]
+                WHERE [DstCode]=${district.DstCode}`
+              ))[0].Total,
+              "Female": (await this.mssqldbDataSource.execute(
+                `SELECT ISNULL(SUM([FEMALE]),0) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_TVET].[CODE_INSTITUTION]
+                WHERE [DstCode]=${district.DstCode}`
+              ))[0].Total,
+              "Value": (await this.mssqldbDataSource.execute(
+                `SELECT (ISNULL(SUM([MALE]),0) + ISNULL(SUM([FEMALE]),0)) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_TVET].[CODE_INSTITUTION]
+                WHERE [DstCode]=${district.DstCode}`
+              ))[0].Total
+            }
+          }))).filter((a: any) => a.Value > 0).sort((a: any, b: any) => a.Value - b.Value).slice(0, 5)
+        }
+      }
+    } catch (error) {
+      throw new HttpErrors.ExpectationFailed(error.message);
+    }
+  }
 }

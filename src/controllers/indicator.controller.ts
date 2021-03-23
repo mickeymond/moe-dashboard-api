@@ -59,4 +59,18 @@ export class IndicatorController {
       throw new HttpErrors.NotFound('District Indicator Not Implemented');
     }
   }
+
+  @get('/loopback/get_top_bottom_5')
+  async getTopBottom5(
+    @param.query.number('year', {required: true}) year: number,
+    @param.query.number('indicatorID', {required: true}) indicatorID: number,
+  ) {
+    if (indicatorID === INDICATOR_IDS.TVET_INSTITUTIONS) {
+      return this.tvetInstitutionsService.getTopBottom5(year);
+    } else if (indicatorID === INDICATOR_IDS.TVET_ENROLMENT_SCHOOL_LEVEL) {
+      return this.tvetEnrolmentSchoolLevelService.getTopBottom5(year);
+    } else {
+      throw new HttpErrors.NotFound('Top Bottom 5 Not Implemented');
+    }
+  }
 }

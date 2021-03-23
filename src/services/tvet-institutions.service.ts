@@ -318,4 +318,94 @@ export class TvetInstitutionsService {
       throw new HttpErrors.ExpectationFailed(error.message);
     }
   }
+
+  async getTopBottom5(year: number) {
+    const dbYear = `db${year}_Ghana`;
+    try {
+      return {
+        [year]: {
+          "Top_5": (await Promise.all((await this.mssqldbDataSource.execute(
+            `SELECT DISTINCT [DstCode], [District]
+            FROM [${dbYear}].[dbo].[RegDst_Inst]
+            INNER JOIN [${dbYear}].[dbo].[ZONES]
+            ON [${dbYear}].[dbo].[RegDst_Inst].[DstCode]=[${dbYear}].[dbo].[ZONES].[CODE_ZONE]
+            WHERE [CODE_TYPE_ZONE]=2`
+          )).map(async (district: any) => {
+            return {
+              "District": district.District,
+              "DistrictId": district.DstCode,
+              "Urban": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [DstCode]=${district.DstCode} AND [CODE_TYPE_LOCALITY]=2`
+              ))[0].TotalCount,
+              "Rural": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [DstCode]=${district.DstCode} AND [CODE_TYPE_LOCALITY]=1`
+              ))[0].TotalCount,
+              "Value": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [DstCode]=${district.DstCode}`
+              ))[0].TotalCount
+            }
+          }))).filter((a: any) => a.Value > 0).sort((a: any, b: any) => b.Value - a.Value).slice(0, 5),
+          "Bottom_5": (await Promise.all((await this.mssqldbDataSource.execute(
+            `SELECT DISTINCT [DstCode], [District]
+            FROM [${dbYear}].[dbo].[RegDst_Inst]
+            INNER JOIN [${dbYear}].[dbo].[ZONES]
+            ON [${dbYear}].[dbo].[RegDst_Inst].[DstCode]=[${dbYear}].[dbo].[ZONES].[CODE_ZONE]
+            WHERE [CODE_TYPE_ZONE]=2`
+          )).map(async (district: any) => {
+            return {
+              "District": district.District,
+              "DistrictId": district.DstCode,
+              "Urban": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [DstCode]=${district.DstCode} AND [CODE_TYPE_LOCALITY]=2`
+              ))[0].TotalCount,
+              "Rural": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [DstCode]=${district.DstCode} AND [CODE_TYPE_LOCALITY]=1`
+              ))[0].TotalCount,
+              "Value": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION_DATA]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[INSTITUTION_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [DstCode]=${district.DstCode}`
+              ))[0].TotalCount
+            }
+          }))).filter((a: any) => a.Value > 0).sort((a: any, b: any) => a.Value - b.Value).slice(0, 5)
+        }
+      }
+    } catch (error) {
+      throw new HttpErrors.ExpectationFailed(error.message);
+    }
+  }
 }
