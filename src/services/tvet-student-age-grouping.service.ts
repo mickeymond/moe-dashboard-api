@@ -14,124 +14,65 @@ export class TvetStudentAgeGroupingService {
       return {
         [year]: {
           "Main": {
-            "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-            "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-            "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
+            "Male": (await this.mssqldbDataSource.execute(
+              `SELECT ISNULL(SUM([NUMBER_MALE_AGE]),0) as Total
+              FROM [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+              INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+              ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+              WHERE [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24)`
+            ))[0].Total,
+            "Female": (await this.mssqldbDataSource.execute(
+              `SELECT ISNULL(SUM([NUMBER_FEMALE_AGE]),0) as Total
+              FROM [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+              INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+              ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+              WHERE [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24)`
+            ))[0].Total,
+            "Value": (await this.mssqldbDataSource.execute(
+              `SELECT (ISNULL(SUM([NUMBER_MALE_AGE]),0) + ISNULL(SUM([NUMBER_FEMALE_AGE]),0)) as Total
+              FROM [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+              INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+              ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+              WHERE [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24)`
+            ))[0].Total,
           },
-          "LevelOne": [
-            {
-              "Region": "AHAFO",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "ASHANTI",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "BONO",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "BONO EAST",
-              "RegionID": "region_id",
-              "Total_Enrolments_ by_Age_Grouping": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "CENTRAL",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "EASTERN",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "GREATER ACCRA",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "NORTH EAST",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "NORTHERN",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "OTI",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "SAVANNA",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "UPPER EAST",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "UPPER WEST",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "VOLTA",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "WESTERN",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
-            },
-            {
-              "Region": "WESTERN NORTH",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above for the databaseyear",
+          "LevelOne": await Promise.all((await this.mssqldbDataSource.execute(
+            `SELECT [CODE_ZONE] ,[DESCRIPTION_ZONE]
+            FROM [${dbYear}].[dbo].[ZONES]
+            WHERE [CODE_TYPE_ZONE]=1`
+          )).map(async (region: any) => {
+            return {
+              "Region": region.DESCRIPTION_ZONE,
+              "RegionID": region.CODE_ZONE,
+              "Male": (await this.mssqldbDataSource.execute(
+                `SELECT ISNULL(SUM([NUMBER_MALE_AGE]),0) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                WHERE [RegCode]=${region.CODE_ZONE} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24)`
+              ))[0].Total,
+              "Female": (await this.mssqldbDataSource.execute(
+                `SELECT ISNULL(SUM([NUMBER_FEMALE_AGE]),0) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                WHERE [RegCode]=${region.CODE_ZONE} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24)`
+              ))[0].Total,
+              "Value": (await this.mssqldbDataSource.execute(
+                `SELECT (ISNULL(SUM([NUMBER_MALE_AGE]),0) + ISNULL(SUM([NUMBER_FEMALE_AGE]),0)) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                WHERE [RegCode]=${region.CODE_ZONE} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24)`
+              ))[0].Total
             }
-          ],
+          })),
           "LevelTwo": [
             {
               "GES": [
