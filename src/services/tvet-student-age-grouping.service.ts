@@ -183,104 +183,189 @@ export class TvetStudentAgeGroupingService {
       return {
         [year]: {
           "Main": {
-            "RegionID": "region_id",
-            "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above in region_id for the databaseyear",
-            "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above in region_id for the databaseyear",
-            "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above in region_id for the databaseyear",
+            "RegionID": regionID,
+            "Male": (await this.mssqldbDataSource.execute(
+              `SELECT ISNULL(SUM([NUMBER_MALE_AGE]),0) as Total
+              FROM [${dbYear}].[dbo].[RegDst_Inst]
+              INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+              ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+              INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+              ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+              WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24,25,26,27,28,29)`
+            ))[0].Total,
+            "Female": (await this.mssqldbDataSource.execute(
+              `SELECT ISNULL(SUM([NUMBER_FEMALE_AGE]),0) as Total
+              FROM [${dbYear}].[dbo].[RegDst_Inst]
+              INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+              ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+              INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+              ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+              WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24,25,26,27,28,29)`
+            ))[0].Total,
+            "Value": (await this.mssqldbDataSource.execute(
+              `SELECT (ISNULL(SUM([NUMBER_MALE_AGE]),0) + ISNULL(SUM([NUMBER_FEMALE_AGE]),0)) as Total
+              FROM [${dbYear}].[dbo].[RegDst_Inst]
+              INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+              ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+              INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+              ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+              WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24,25,26,27,28,29)`
+            ))[0].Total
           },
-          "LevelOne": [
-            {
-              "District": "DISTRICT_NAME",
-              "DistrictID": "district_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above in district_id for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above in district_id for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above in district_id for the databaseyear",
-            },
-            {
-              "District": "DISTRICT_NAME",
-              "DistrictID": "district_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above in district_id for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above in district_id for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above in district_id for the databaseyear",
-            },
-            {
-              "District": "DISTRICT_NAME",
-              "DistrictID": "district_id",
-              "Value": "calculate_total number of enrolments for students from 14 years or less to 18 & above in district_id for the databaseyear",
-              "Male": "calculate_number of enrolments for male students from 14 years or less to 18 years and above in district_id for the databaseyear",
-              "Female": "calculate_number of enrolments for female students from 14 years or less to 18 years and above in district_id for the databaseyear",
+          "LevelOne": await Promise.all((await this.mssqldbDataSource.execute(
+            `SELECT DISTINCT [DstCode], [District]
+            FROM [${dbYear}].[dbo].[RegDst_Inst]
+            INNER JOIN [${dbYear}].[dbo].[ZONES]
+            ON [${dbYear}].[dbo].[RegDst_Inst].[DstCode]=[${dbYear}].[dbo].[ZONES].[CODE_ZONE]
+            WHERE [CODE_TYPE_ZONE]=2 AND [RegCode]=${regionID}`
+          )).map(async (district: any) => {
+            return {
+              "District": district.District,
+              "DistrictID": district.DstCode,
+              "Male": (await this.mssqldbDataSource.execute(
+                `SELECT ISNULL(SUM([NUMBER_MALE_AGE]),0) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                WHERE [DstCode]=${district.DstCode} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24,25,26,27,28,29)`
+              ))[0].Total,
+              "Female": (await this.mssqldbDataSource.execute(
+                `SELECT ISNULL(SUM([NUMBER_FEMALE_AGE]),0) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                WHERE [DstCode]=${district.DstCode} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24,25,26,27,28,29)`
+              ))[0].Total,
+              "Value": (await this.mssqldbDataSource.execute(
+                `SELECT (ISNULL(SUM([NUMBER_MALE_AGE]),0) + ISNULL(SUM([NUMBER_FEMALE_AGE]),0)) as Total
+                FROM [${dbYear}].[dbo].[RegDst_Inst]
+                INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                WHERE [DstCode]=${district.DstCode} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20,21,22,23,24,25,26,27,28,29)`
+              ))[0].Total
             }
-          ],
-          "LevelTwo": [
-            {
-              "GES": [
-                {
-                  "14yrsorless": [
-                    {
-                      "Male": "00",
-                      "Female": "00"
-                    }
-                  ],
-                  "15yrsto17yrs": [
-                    {
-                      "Male": "00",
-                      "Female": "00"
-                    }
-                  ],
-                  "18yrsandabove": [
-                    {
-                      "Male": "00",
-                      "Female": "00"
-                    }
-                  ]
+          })),
+          "LevelTwo": await Promise.all((await this.mssqldbDataSource.execute(
+            `SELECT DISTINCT [CODE_TYPE_TVET_INSTITUTION], [DESCRIPTION_TYPE_TVET_INSTITUTION]
+            FROM [db2018_Ghana].[dbo].[TYPE_TVET_INSTITUTION]`
+          )).map(async (level: any) => {
+            return {
+              "Level": level.DESCRIPTION_TYPE_TVET_INSTITUTION,
+              "Data": {
+                "14yrsorless": {
+                  "Male": (await this.mssqldbDataSource.execute(
+                    `SELECT ISNULL(SUM([NUMBER_MALE_AGE]),0) as Total
+                    FROM [${dbYear}].[dbo].[RegDst_Inst]
+                    INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                    ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                    INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                    INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                    WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20) AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION}`
+                  ))[0].Total,
+                  "Female": (await this.mssqldbDataSource.execute(
+                    `SELECT ISNULL(SUM([NUMBER_FEMALE_AGE]),0) as Total
+                    FROM [${dbYear}].[dbo].[RegDst_Inst]
+                    INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                    ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                    INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                    INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                    WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20) AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION}`
+                  ))[0].Total,
+                  "Value": (await this.mssqldbDataSource.execute(
+                    `SELECT (ISNULL(SUM([NUMBER_MALE_AGE]),0) + ISNULL(SUM([NUMBER_FEMALE_AGE]),0)) as Total
+                    FROM [${dbYear}].[dbo].[RegDst_Inst]
+                    INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                    ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                    INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                    INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                    WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (20) AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION}`
+                  ))[0].Total
+                },
+                "15yrsto17yrs": {
+                  "Male": (await this.mssqldbDataSource.execute(
+                    `SELECT ISNULL(SUM([NUMBER_MALE_AGE]),0) as Total
+                    FROM [${dbYear}].[dbo].[RegDst_Inst]
+                    INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                    ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                    INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                    INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                    WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (21,22,23) AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION}`
+                  ))[0].Total,
+                  "Female": (await this.mssqldbDataSource.execute(
+                    `SELECT ISNULL(SUM([NUMBER_FEMALE_AGE]),0) as Total
+                    FROM [${dbYear}].[dbo].[RegDst_Inst]
+                    INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                    ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                    INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                    INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                    WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (21,22,23) AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION}`
+                  ))[0].Total,
+                  "Value": (await this.mssqldbDataSource.execute(
+                    `SELECT (ISNULL(SUM([NUMBER_MALE_AGE]),0) + ISNULL(SUM([NUMBER_FEMALE_AGE]),0)) as Total
+                    FROM [${dbYear}].[dbo].[RegDst_Inst]
+                    INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                    ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                    INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                    INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                    WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (21,22,23) AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION}`
+                  ))[0].Total
+                },
+                "18yrsandabove": {
+                  "Male": (await this.mssqldbDataSource.execute(
+                    `SELECT ISNULL(SUM([NUMBER_MALE_AGE]),0) as Total
+                    FROM [${dbYear}].[dbo].[RegDst_Inst]
+                    INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                    ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                    INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                    INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                    WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (24,25,26,27,28,29) AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION}`
+                  ))[0].Total,
+                  "Female": (await this.mssqldbDataSource.execute(
+                    `SELECT ISNULL(SUM([NUMBER_FEMALE_AGE]),0) as Total
+                    FROM [${dbYear}].[dbo].[RegDst_Inst]
+                    INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                    ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                    INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                    INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                    WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (24,25,26,27,28,29) AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION}`
+                  ))[0].Total,
+                  "Value": (await this.mssqldbDataSource.execute(
+                    `SELECT (ISNULL(SUM([NUMBER_MALE_AGE]),0) + ISNULL(SUM([NUMBER_FEMALE_AGE]),0)) as Total
+                    FROM [${dbYear}].[dbo].[RegDst_Inst]
+                    INNER JOIN [${dbYear}].[dbo].[ENROLMENT_AGE_TVET]
+                    ON [${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]=[${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]
+                    INNER JOIN [${dbYear}].[dbo].[TYPE_AGE]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_TYPE_AGE]=[${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE]
+                    INNER JOIN [${dbYear}].[dbo].[INSTITUTION_INFORMATION]
+                    ON [${dbYear}].[dbo].[ENROLMENT_AGE_TVET].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                    WHERE [RegCode]=${regionID} AND [${dbYear}].[dbo].[TYPE_AGE].[CODE_TYPE_AGE] IN (24,25,26,27,28,29) AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION}`
+                  ))[0].Total
                 }
-              ],
-              "OtherPublicInstitutions": [
-                {
-                  "14yrsorless": [
-                    {
-                      "Male": "00",
-                      "Female": "00"
-                    }
-                  ],
-                  "15yrsto17yrs": [
-                    {
-                      "Male": "00",
-                      "Female": "00"
-                    }
-                  ],
-                  "18yrsandabove": [
-                    {
-                      "Male": "00",
-                      "Female": "00"
-                    }
-                  ]
-                }
-              ],
-              "PrivateInstitutions": [
-                {
-                  "14yrsorless": [
-                    {
-                      "Male": "00",
-                      "Female": "00"
-                    }
-                  ],
-                  "15yrsto17yrs": [
-                    {
-                      "Male": "00",
-                      "Female": "00"
-                    }
-                  ],
-                  "18yrsandabove": [
-                    {
-                      "Male": "00",
-                      "Female": "00"
-                    }
-                  ]
-                }
-              ]
+              }
             }
-          ]
+          }))
         }
       }
     } catch (error) {
