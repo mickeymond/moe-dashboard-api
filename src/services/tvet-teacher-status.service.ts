@@ -42,120 +42,49 @@ export class TvetTeacherStatusService {
               WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3`
             ))[0].TotalCount
           },
-          "LevelOne": [
-            {
-              "Region": "AHAFO",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET  Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "ASHANTI",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "BONO",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "BONO EAST",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "CENTRAL",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "EASTERN",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "GREATER ACCRA",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "NORTH EAST",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "NORTHERN",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "OTI",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "SAVANNA",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "UPPER EAST",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "UPPER WEST",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "VOLTA",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "WESTERN",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
-            },
-            {
-              "Region": "WESTERN NORTH",
-              "RegionID": "region_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in region for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers in region for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in region for the databaseyear",
+          "LevelOne": await Promise.all((await this.mssqldbDataSource.execute(
+            `SELECT DISTINCT [CODE_ZONE], [DESCRIPTION_ZONE]
+            FROM [${dbYear}].[dbo].[ZONES]
+            WHERE [CODE_TYPE_ZONE]=1`
+          )).map(async (region: any) => {
+            return {
+              "Region": region.DESCRIPTION_ZONE,
+              "RegionId": region.CODE_ZONE,
+              "Male": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [RegCode]=${region.CODE_ZONE} AND [CODE_TYPE_SEX]=1`
+              ))[0].TotalCount,
+              "Female": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [RegCode]=${region.CODE_ZONE} AND [CODE_TYPE_SEX]=2`
+              ))[0].TotalCount,
+              "Value": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [RegCode]=${region.CODE_ZONE}`
+              ))[0].TotalCount
             }
-          ],
+          })),
           "LevelTwo": [
             {
               "GES": [
