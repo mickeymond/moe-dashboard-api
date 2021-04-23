@@ -179,10 +179,40 @@ export class TvetTeacherStatusService {
       return {
         [year]: {
           "Main": {
-            "RegionID": "region_id",
-            "Value": "calculate_total number of Trained and Untrained TVET Teachers  in region_id for the databaseyear",
-            "Male": "calculate_number of Trained and Untrained Male TVET Teachers  in region_id for the databaseyear",
-            "Female": "calculate_number of Trained and Untrained Female TVET Teachers  in region_id for the databaseyear",
+            "RegionID": regionID,
+            "Male": (await this.mssqldbDataSource.execute(
+              `SELECT COUNT(*) AS TotalCount
+              FROM [${dbYear}].[dbo].[TEACHER]
+              INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+              ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+              INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+              ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+              INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+              ON [${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+              WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [RegCode]=${regionID} AND [CODE_TYPE_SEX]=1`
+            ))[0].TotalCount,
+            "Female": (await this.mssqldbDataSource.execute(
+              `SELECT COUNT(*) AS TotalCount
+              FROM [${dbYear}].[dbo].[TEACHER]
+              INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+              ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+              INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+              ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+              INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+              ON [${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+              WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [RegCode]=${regionID} AND [CODE_TYPE_SEX]=2`
+            ))[0].TotalCount,
+            "Value": (await this.mssqldbDataSource.execute(
+              `SELECT COUNT(*) AS TotalCount
+              FROM [${dbYear}].[dbo].[TEACHER]
+              INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+              ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+              INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+              ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+              INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+              ON [${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+              WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [RegCode]=${regionID}`
+            ))[0].TotalCount
           },
           "LevelOne": [
             {
