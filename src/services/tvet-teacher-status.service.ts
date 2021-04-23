@@ -214,29 +214,51 @@ export class TvetTeacherStatusService {
               WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [RegCode]=${regionID}`
             ))[0].TotalCount
           },
-          "LevelOne": [
-            {
-              "District": "DISTRICT_NAME",
-              "DistrictID": "district_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in district_id for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers  in district_id for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in district_id for the databaseyear",
-            },
-            {
-              "District": "DISTRICT_NAME",
-              "DistrictID": "district_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in district_id for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers  in district_id for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in district_id for the databaseyear",
-            },
-            {
-              "District": "DISTRICT_NAME",
-              "DistrictID": "district_id",
-              "Value": "calculate_total number of Trained and Untrained TVET Teachers in district_id for the databaseyear",
-              "Male": "calculate_number of Trained and Untrained Male TVET Teachers  in district_id for the databaseyear",
-              "Female": "calculate_number of Trained and Untrained Female TVET Teachers in district_id for the databaseyear",
+          "LevelOne": await Promise.all((await this.mssqldbDataSource.execute(
+            `SELECT DISTINCT [DstCode], [District]
+            FROM [${dbYear}].[dbo].[RegDst_Inst]
+            INNER JOIN [${dbYear}].[dbo].[ZONES]
+            ON [${dbYear}].[dbo].[RegDst_Inst].[DstCode]=[${dbYear}].[dbo].[ZONES].[CODE_ZONE]
+            WHERE [CODE_TYPE_ZONE]=2 AND [RegCode]=${regionID}`
+          )).map(async (district: any) => {
+            return {
+              "District": district.District,
+              "DistrictId": district.DstCode,
+              "Male": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [DstCode]=${district.DstCode} AND [CODE_TYPE_SEX]=1`
+              ))[0].TotalCount,
+              "Female": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [DstCode]=${district.DstCode} AND [CODE_TYPE_SEX]=2`
+              ))[0].TotalCount,
+              "Value": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [DstCode]=${district.DstCode}`
+              ))[0].TotalCount
             }
-          ],
+          })),
           "LevelTwo": [
             {
               "GES": [
