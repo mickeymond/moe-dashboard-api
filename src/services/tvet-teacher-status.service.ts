@@ -102,7 +102,7 @@ export class TvetTeacherStatusService {
                     ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
                     INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([PROFESSIONAL_TEACHER] IS NOT NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
                   ))[0].TotalCount,
                   "Female": (await this.mssqldbDataSource.execute(
                     `SELECT COUNT(*) AS TotalCount
@@ -113,7 +113,7 @@ export class TvetTeacherStatusService {
                     ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
                     INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([PROFESSIONAL_TEACHER] IS NOT NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
                   ))[0].TotalCount,
                   "Value": (await this.mssqldbDataSource.execute(
                     `SELECT COUNT(*) AS TotalCount
@@ -124,7 +124,7 @@ export class TvetTeacherStatusService {
                     ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
                     INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([PROFESSIONAL_TEACHER] IS NOT NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
                   ))[0].TotalCount
                 },
                 "Untrained": {
@@ -137,7 +137,7 @@ export class TvetTeacherStatusService {
                     ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
                     INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([PROFESSIONAL_TEACHER] IS NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NULL)`
                   ))[0].TotalCount,
                   "Female": (await this.mssqldbDataSource.execute(
                     `SELECT COUNT(*) AS TotalCount
@@ -148,7 +148,7 @@ export class TvetTeacherStatusService {
                     ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
                     INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([PROFESSIONAL_TEACHER] IS NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NULL)`
                   ))[0].TotalCount,
                   "Value": (await this.mssqldbDataSource.execute(
                     `SELECT COUNT(*) AS TotalCount
@@ -159,7 +159,7 @@ export class TvetTeacherStatusService {
                     ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
                     INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([PROFESSIONAL_TEACHER] IS NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NULL)`
                   ))[0].TotalCount
                 },
               }
@@ -278,7 +278,7 @@ export class TvetTeacherStatusService {
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                     INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
                     ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([PROFESSIONAL_TEACHER] IS NOT NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
                   ))[0].TotalCount,
                   "Female": (await this.mssqldbDataSource.execute(
                     `SELECT COUNT(*) AS TotalCount
@@ -291,7 +291,7 @@ export class TvetTeacherStatusService {
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                     INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
                     ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([PROFESSIONAL_TEACHER] IS NOT NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
                   ))[0].TotalCount,
                   "Value": (await this.mssqldbDataSource.execute(
                     `SELECT COUNT(*) AS TotalCount
@@ -304,7 +304,7 @@ export class TvetTeacherStatusService {
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                     INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
                     ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([PROFESSIONAL_TEACHER] IS NOT NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
                   ))[0].TotalCount
                 },
                 "Untrained": {
@@ -319,7 +319,7 @@ export class TvetTeacherStatusService {
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                     INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
                     ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([PROFESSIONAL_TEACHER] IS NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NULL)`
                   ))[0].TotalCount,
                   "Female": (await this.mssqldbDataSource.execute(
                     `SELECT COUNT(*) AS TotalCount
@@ -332,7 +332,7 @@ export class TvetTeacherStatusService {
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                     INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
                     ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([PROFESSIONAL_TEACHER] IS NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NULL)`
                   ))[0].TotalCount,
                   "Value": (await this.mssqldbDataSource.execute(
                     `SELECT COUNT(*) AS TotalCount
@@ -345,7 +345,7 @@ export class TvetTeacherStatusService {
                     ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
                     INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
                     ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([PROFESSIONAL_TEACHER] IS NULL)`
+                    WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NULL)`
                   ))[0].TotalCount
                 },
               }
