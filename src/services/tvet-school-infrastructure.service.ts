@@ -91,63 +91,61 @@ export class TvetSchoolInfrastructureService {
           )).map(async (level: any) => {
             return {
               "Level": level.DESCRIPTION_TYPE_TVET_INSTITUTION,
-              "Data": {
-                "Permanent": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Temporary": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Workshop": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Computers": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Value": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount
-              }
+              "Permanent": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Temporary": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Workshop": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Computers": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Value": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount
             }
           }))
         }
@@ -250,73 +248,71 @@ export class TvetSchoolInfrastructureService {
           )).map(async (level: any) => {
             return {
               "Level": level.DESCRIPTION_TYPE_TVET_INSTITUTION,
-              "Data": {
-                "Permanent": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
-                  ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Temporary": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
-                  ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Workshop": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
-                  ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Computers": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
-                  ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Value": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
-                  ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount
-              }
+              "Permanent": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Temporary": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Workshop": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Computers": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Value": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [RegCode]=${regionID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount
             }
           }))
         }
@@ -374,73 +370,71 @@ export class TvetSchoolInfrastructureService {
           )).map(async (level: any) => {
             return {
               "Level": level.DESCRIPTION_TYPE_TVET_INSTITUTION,
-              "Data": {
-                "Permanent": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
-                  ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [DstCode]=${districtID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Temporary": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
-                  ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [DstCode]=${districtID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Workshop": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
-                  ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [DstCode]=${districtID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Computers": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
-                  ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [DstCode]=${districtID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount,
-                "Value": (await this.mssqldbDataSource.execute(
-                  `SELECT COUNT(*) AS TotalCount
-                  FROM [${dbYear}].[dbo].[TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
-                  ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
-                  INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
-                  ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
-                  INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
-                  ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
-                  INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
-                  ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
-                  WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [DstCode]=${districtID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
-                ))[0].TotalCount
-              }
+              "Permanent": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [DstCode]=${districtID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Temporary": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [DstCode]=${districtID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Workshop": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=1 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [DstCode]=${districtID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Computers": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_SEX]=2 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [DstCode]=${districtID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount,
+              "Value": (await this.mssqldbDataSource.execute(
+                `SELECT COUNT(*) AS TotalCount
+                FROM [${dbYear}].[dbo].[TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[TEACHER_DATA]
+                ON [${dbYear}].[dbo].[TEACHER].[ID_TEACHER]=[${dbYear}].[dbo].[TEACHER_DATA].[ID_TEACHER]
+                INNER JOIN [${dbYear}].[dbo].[INSTITUTION]
+                ON [${dbYear}].[dbo].[TEACHER_DATA].[CODE_INSTITUTION]=[${dbYear}].[dbo].[INSTITUTION].[CODE_INSTITUTION]
+                INNER JOIN [db2018_Ghana].[dbo].[INSTITUTION_INFORMATION]
+                ON [db2018_Ghana].[dbo].[INSTITUTION].[CODE_INSTITUTION]=[db2018_Ghana].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]
+                INNER JOIN [${dbYear}].[dbo].[RegDst_Inst]
+                ON [${dbYear}].[dbo].[INSTITUTION_INFORMATION].[CODE_INSTITUTION]=[${dbYear}].[dbo].[RegDst_Inst].[CODE_INSTITUTION]
+                WHERE [CODE_TYPE_EDUCATION_SYSTEM]=3 AND [CODE_TYPE_TVET_INSTITUTION]=${level.CODE_TYPE_TVET_INSTITUTION} AND [DstCode]=${districtID} AND ([YEAR_PROFESSIONAL] IS NOT NULL)`
+              ))[0].TotalCount
             }
           }))
         }

@@ -6,3 +6,5 @@ export * from './tvet-technical-teacher-status.service';
 export * from './tvet-school-infrastructure.service';
 export * from './tvet-classroom-structure-state.service';
 export * from './tvet-school-examining-board.service';
+export * from './tvet-school-facilities.service';
+export * from './tvet-school-kind.service';

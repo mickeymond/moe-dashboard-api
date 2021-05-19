@@ -1,7 +1,7 @@
 // Uncomment these imports to begin using these cool features!
 import {service} from '@loopback/core';
 import {get, HttpErrors, param} from '@loopback/rest';
-import {TvetClassroomStructureStateService, TvetEnrolmentSchoolLevelService, TvetInstitutionsService, TvetSchoolExaminingBoardService, TvetSchoolInfrastructureService, TvetStudentAgeGroupingService, TvetTeacherStatusService, TvetTechnicalTeacherStatusService} from '../services';
+import {TvetClassroomStructureStateService, TvetEnrolmentSchoolLevelService, TvetInstitutionsService, TvetSchoolExaminingBoardService, TvetSchoolFacilitiesService, TvetSchoolInfrastructureService, TvetSchoolKindService, TvetStudentAgeGroupingService, TvetTeacherStatusService, TvetTechnicalTeacherStatusService} from '../services';
 
 const INDICATOR_IDS = {
   TVET_INSTITUTIONS: 31,
@@ -12,6 +12,8 @@ const INDICATOR_IDS = {
   TVET_SCHOOL_INFRASTRUCTURE: 32,
   TVET_CLASSROOM_STRUCTURE_STATE: 33,
   TVET_SCHOOL_EXAMINING_BODY: 35,
+  TVET_SCHOOL_FACILITIES: 34,
+  TVET_SCHOOL_KIND: 36,
 }
 
 export class IndicatorController {
@@ -24,6 +26,8 @@ export class IndicatorController {
     @service(TvetSchoolInfrastructureService) private tvetSchoolInfrastructureService: TvetSchoolInfrastructureService,
     @service(TvetClassroomStructureStateService) private tvetClassroomStructureStateService: TvetClassroomStructureStateService,
     @service(TvetSchoolExaminingBoardService) private tvetSchoolExaminingBoardService: TvetSchoolExaminingBoardService,
+    @service(TvetSchoolFacilitiesService) private tvetSchoolFacilitiesService: TvetSchoolFacilitiesService,
+    @service(TvetSchoolKindService) private tvetSchoolKindService: TvetSchoolKindService,
   ) { }
 
   @get('/loopback/get_indicator_national')
@@ -47,6 +51,10 @@ export class IndicatorController {
       return this.tvetClassroomStructureStateService.getNational(year);
     } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_EXAMINING_BODY) {
       return this.tvetSchoolExaminingBoardService.getNational(year);
+    } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_FACILITIES) {
+      return this.tvetSchoolFacilitiesService.getNational(year);
+    } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_KIND) {
+      return this.tvetSchoolKindService.getNational(year);
     } else {
       throw new HttpErrors.NotFound('National Indicator Not Implemented');
     }
@@ -74,6 +82,10 @@ export class IndicatorController {
       return this.tvetClassroomStructureStateService.getRegional(year, regionID);
     } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_EXAMINING_BODY) {
       return this.tvetSchoolExaminingBoardService.getRegional(year, regionID);
+    } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_FACILITIES) {
+      return this.tvetSchoolFacilitiesService.getRegional(year, regionID);
+    } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_KIND) {
+      return this.tvetSchoolKindService.getRegional(year, regionID);
     } else {
       throw new HttpErrors.NotFound('Regional Indicator Not Implemented');
     }
@@ -101,6 +113,10 @@ export class IndicatorController {
       return this.tvetClassroomStructureStateService.getDistrict(year, districtID);
     } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_EXAMINING_BODY) {
       return this.tvetSchoolExaminingBoardService.getDistrict(year, districtID);
+    } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_FACILITIES) {
+      return this.tvetSchoolFacilitiesService.getDistrict(year, districtID);
+    } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_KIND) {
+      return this.tvetSchoolKindService.getDistrict(year, districtID);
     } else {
       throw new HttpErrors.NotFound('District Indicator Not Implemented');
     }
@@ -127,6 +143,10 @@ export class IndicatorController {
       return this.tvetClassroomStructureStateService.getTopBottom5(year);
     } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_EXAMINING_BODY) {
       return this.tvetSchoolExaminingBoardService.getTopBottom5(year);
+    } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_FACILITIES) {
+      return this.tvetSchoolFacilitiesService.getTopBottom5(year);
+    } else if (indicatorID === INDICATOR_IDS.TVET_SCHOOL_KIND) {
+      return this.tvetSchoolKindService.getTopBottom5(year);
     } else {
       throw new HttpErrors.NotFound('Top Bottom 5 Not Implemented');
     }
